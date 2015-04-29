@@ -3,6 +3,18 @@
 from django.db import models
 from django.core.validators import *
 
+class Horario (models.Model):
+    DIAS = (
+        ('Seg', 'Segunda'),
+        ('Ter', 'Terça'),
+        ('Qua', 'Quarta'),
+        ('Qui', 'Quinta'),
+        ('Sex', 'Sexta')
+        )
+
+    dias = models.CharField(max_length=3, choices=DIAS)
+    hora = models.TimeField()
+
 class Cod_nome (models.Model):
     nome = models.CharField(max_length=200)
     cod = models.CharField(max_length=20)
@@ -15,12 +27,11 @@ class Cod_nome (models.Model):
         return self.nome
 
 class Disciplina (Cod_nome):
-    None
+    horario = models.ManyToManyField(Horario, verbose_name="Horario da discilpina")
 
 class Curso (Cod_nome):
     disciplina = models.ManyToManyField(Disciplina, verbose_name="Disciplinas da grade de um curso", null=True)
     #poll = models.ForeignKey(Poll, verbose_name="the related poll")
-
 
 class Telefone (models.Model):
     TIPOS = (
@@ -71,3 +82,23 @@ class Professor (Pessoa):
     tipo_contrato = models.CharField(max_length=200)
     data_contratacao = models.DateTimeField('Data da contratacão')
     data_recisao = models.DateTimeField('Data da recisão', null=True)
+
+class Noticia(models.Model):
+    titulo = models.CharField(max_length=200)
+    corpo = models.CharField(max_length=900)
+    data_noticia = models.DateField(auto_now=True)
+
+class Arquivo(models.Model):
+    titulo_arquivo = models.CharField(max_length=200, verbose_name="Titulo do arquivo")
+    descricao_arquivo = models.CharField(max_length=200, null=True, verbose_name="Descricao do arquivo")
+    arquivo = models.FileField(upload_to="files",verbose_name="Arquivo para upload")
+
+class Turma (models.Model):
+    qtd_alunos = models.IntegerField('Quantidade de alunos')
+    data_inicio = models.DateField('Data de início')
+    data_termino = models.DateField('Data de término')
+    arquivo = models.ManyToManyField(Arquivo, verbose_name="Arquivos")
+    noticia = models.ManyToManyField(Noticia, verbose_name="Notícia")
+
+
+
