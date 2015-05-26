@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.core.validators import *
+from time import gmtime, strftime
 
 class Telefone (models.Model):
     TIPOS = (
@@ -16,17 +17,15 @@ class Telefone (models.Model):
         return self.numero
 
 class Endereco (models.Model):
-    tipo = models.CharField(max_length=200, blank=True, null=True)
     rua = models.CharField(max_length=200, verbose_name="Rua e número")
     complemento = models.CharField(max_length=200, blank=True, null=True)
     cep = models.CharField(max_length=200)
-    bairro = models.CharField(max_length=200)
+    bairro = models.CharField(max_length=200, blank=True, null=True)
     cidade = models.CharField(max_length=200)
     estado = models.CharField(max_length=200)
-    pais = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return self.rua
+        return u'%s %s' % (self.cidade, self.rua)
 
 class Horario (models.Model):
     DIAS = (
@@ -37,12 +36,17 @@ class Horario (models.Model):
         ('Sex', 'Sexta')
         )
 
-    dias = models.CharField(max_length=3, choices=DIAS)
-    hora = models.TimeField()
+    HORARIOS = (
+        ('M12', '07:00-08:30'),
+        ('M23', '09:00-10:40')
+        ,('M45', '10:40-12:20')
+        )
 
-class Nota(models.Model):
-    valor = models.IntegerField(verbose_name="Nota")
-    peso = models.IntegerField(verbose_name="Peso da Nota")
+    dia = models.CharField(max_length=3, choices=DIAS)
+    horario = models.CharField(max_length=5, choices=HORARIOS)
+
+    def __unicode__(self):
+        return u'%s, %s'  % (self.dia, self.horario)
 
 class Periodo(models.Model):
     PERIODOS = (
@@ -52,8 +56,11 @@ class Periodo(models.Model):
         ('2016.2', '2016.2'),
         ('2017.1', '2017.1')
         )
-    periodos = models.CharField(max_length=6, choices=PERIODOS)
-    
+
+    periodo = models.CharField(max_length=10, choices=PERIODOS)
+
+    def __unicode__(self):
+        return u'%s'  % (self.periodo)
 
 class Cod_nome (models.Model):
     nome = models.CharField(max_length=200)
@@ -64,11 +71,10 @@ class Cod_nome (models.Model):
         ordering = ['nome']
 
     def __unicode__(self):
-        return self.nome
+        return  u'%s %s' % (self.nome, self.cod)
 
 class Pessoa (models.Model):
     nome = models.CharField(max_length=200)
-    matricula = models.CharField(max_length=200)
     email = models.CharField(max_length=200, validators=[validate_email])
     endereco = models.OneToOneField(Endereco, verbose_name="Endereco")
     telefone = models.ForeignKey(Telefone, verbose_name="Telefone para contato")
@@ -77,20 +83,26 @@ class Pessoa (models.Model):
         abstract = True
 
     def __unicode__(self):
-        return self.nome
+        return u'%s %s' % (self.nome, self.matricula)
+
+    def matricula_default():
+        matricula = strftime("%Y%s", gmtime())
+        return matricula
+
+    matricula = models.CharField(max_length=30, default=matricula_default)
+
 
 class Disciplina (Cod_nome):
-    qtd_alunos = models.IntegerField('Quantidade de alunos')
+    qtd_alunos = models.IntegerField(verbose_name="Quantidade de alunos")
     horario = models.ManyToManyField(Horario, verbose_name="Horario da discilpina")
 
 class Curso (Cod_nome):
     disciplina = models.ManyToManyField(Disciplina, verbose_name="Disciplinas da grade de um curso", null=True)
     #poll = models.ForeignKey(Poll, verbose_name="the related poll")
-    
+
 class Aluno (Pessoa):
     curso = models.ForeignKey(Curso, verbose_name="Curso do aluno")
-    periodo = models.CharField(max_length=200)
-    data_ingresso = models.DateTimeField('Data de ingresso')
+    data_ingresso = models.DateField('Data de ingresso')
     disciplinas = models.ManyToManyField(Disciplina, verbose_name="Disciplina do aluno")
 
 
@@ -110,8 +122,6 @@ class Unidade(models.Model):
             ("6","6°"),
             )
     label = models.CharField(max_length=3,choices=LABEL)
-    nota = models.ManyToManyField(Nota, verbose_name="Nota da Unidade")
-    disciplina = models.OneToOneField(Disciplina, verbose_name="Unidade")
 
     def __unicode__(self):
         return self.label
@@ -121,18 +131,35 @@ class Noticia(models.Model):
     corpo = models.CharField(max_length=900)
     data_noticia = models.DateField(auto_now=True)
 
+    def unicode(self):
+        return self.titulo
+
 class Arquivo(models.Model):
     titulo_arquivo = models.CharField(max_length=200, verbose_name="Titulo do arquivo")
     descricao_arquivo = models.CharField(max_length=200, null=True, verbose_name="Descricao do arquivo")
     arquivo = models.FileField(upload_to="files",verbose_name="Arquivo para upload")
-    
+
     def __unicode__(self):
         return self.titulo
 
-
 class Turma (models.Model):
     disciplina = models.OneToOneField(Disciplina, verbose_name="Disciplina")
+    nome = models.CharField(max_length=200, verbose_name="Nome da turma", blank=True)
+    periodo = models.ForeignKey(Periodo, verbose_name='Periodo')
     data_inicio = models.DateField('Data de início')
     data_termino = models.DateField('Data de término')
-    arquivo = models.ManyToManyField(Arquivo, verbose_name="Arquivos")
-    noticia = models.ManyToManyField(Noticia, verbose_name="Notícia")
+    arquivo = models.ManyToManyField(Arquivo, verbose_name="Arquivos", blank=True)
+    noticia = models.ManyToManyField(Noticia, verbose_name="Notícia", blank=True)
+
+    def __unicode__(self):
+        return self.nome
+
+class Nota(models.Model):
+    valor = models.IntegerField(verbose_name="Nota")
+    peso = models.IntegerField(verbose_name="Peso da Nota")
+    aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
+    disciplina = models.ForeignKey(Disciplina, verbose_name="Disciplina")
+    unidade = models.ForeignKey(Unidade, verbose_name="Unidade Disc.")
+
+    def __unicode__(self):
+        return u'%s, peso %s' % (self.valor, self.peso)
