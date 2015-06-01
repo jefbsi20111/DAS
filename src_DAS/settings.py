@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Para rodar os testes é necessário instalar o nose: pip install nose; pip install django-nose
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Application definition
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DAS_core',
+    'django_nose',
 )
 
 MIDDLEWARE_CLASSES = (
