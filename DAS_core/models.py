@@ -93,8 +93,7 @@ class Pessoa (models.Model):
 
 
 class Disciplina (Cod_nome):
-    qtd_alunos = models.IntegerField(verbose_name="Quantidade de alunos")
-    horario = models.ManyToManyField(Horario, verbose_name="Horario da discilpina")
+    
 
 class Curso (Cod_nome):
     disciplina = models.ManyToManyField(Disciplina, verbose_name="Disciplinas da grade de um curso", null=True)
@@ -107,8 +106,6 @@ class Aluno (Pessoa):
 
 
 class Professor (Pessoa):
-    disciplina = models.ManyToManyField(Disciplina, verbose_name=
-        "Diciplinas alocadas para o professor")
     tipo_contrato = models.CharField(max_length=200)
     data_contratacao = models.DateTimeField('Data da contratacão')
     data_recisao = models.DateTimeField('Data da recisão', null=True)
@@ -144,12 +141,17 @@ class Arquivo(models.Model):
 
 class Turma (models.Model):
     disciplina = models.OneToOneField(Disciplina, verbose_name="Disciplina")
+    professor = models.ManyToManyField(Professor, verbose_name="Professor da Turma")
+    alunos = models.ForeignKey(Aluno, verbose_name = "Alunos na disciplina")
     nome = models.CharField(max_length=200, verbose_name="Nome da turma", blank=True)
     periodo = models.ForeignKey(Periodo, verbose_name='Periodo')
     data_inicio = models.DateField('Data de início')
     data_termino = models.DateField('Data de término')
     arquivo = models.ManyToManyField(Arquivo, verbose_name="Arquivos", blank=True)
     noticia = models.ManyToManyField(Noticia, verbose_name="Notícia", blank=True)
+    qtd_aulas = models.IntegerField(verbose_name="Quantidade de aulas")
+    qtd_alunos = models.IntegerField(verbose_name="Quantidade de alunos")
+    horario = models.ManyToManyField(Horario, verbose_name="Horario da discilpina")
 
     def __unicode__(self):
         return self.nome
@@ -158,8 +160,23 @@ class Nota(models.Model):
     valor = models.IntegerField(verbose_name="Nota")
     peso = models.IntegerField(verbose_name="Peso da Nota")
     aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
-    disciplina = models.ForeignKey(Disciplina, verbose_name="Disciplina")
+    turma = models.ForeignKey(Turma, verbose_name="Disciplina")
     unidade = models.ForeignKey(Unidade, verbose_name="Unidade Disc.")
 
     def __unicode__(self):
         return u'%s, peso %s' % (self.valor, self.peso)
+
+class Frequencia(object):
+    """docstring for Frequencia"""
+    aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
+    turma = models.ForeignKey(Turma, verbose_name="Disciplina")
+    n_faltas = models.IntegerField(verbose_name="Numero de faltas")
+
+    def falta_1aula(self):
+        self.n_faltas = n_faltas + 1
+
+    def falta_2aula(self):
+        self.n_faltas = n_faltas + 2
+
+    def __unicode__(self):
+        return u'%s' %(self.n_faltas) 
