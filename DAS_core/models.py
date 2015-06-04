@@ -93,7 +93,7 @@ class Pessoa (models.Model):
 
 
 class Disciplina (Cod_nome):
-    
+    pass
 
 class Curso (Cod_nome):
     disciplina = models.ManyToManyField(Disciplina, verbose_name="Disciplinas da grade de um curso", null=True)
@@ -179,4 +179,4 @@ class Frequencia(object):
         self.n_faltas = n_faltas + 2
 
     def __unicode__(self):
-        return u'%s' %(self.n_faltas) 
+        return u'%s' %(self.n_faltas)
