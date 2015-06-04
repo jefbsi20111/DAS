@@ -166,7 +166,7 @@ class Nota(models.Model):
     def __unicode__(self):
         return u'%s, peso %s' % (self.valor, self.peso)
 
-class Frequencia(object):
+class Frequencia(models.Model):
     """docstring for Frequencia"""
     aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
     turma = models.ForeignKey(Turma, verbose_name="Disciplina")
