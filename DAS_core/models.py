@@ -12,7 +12,8 @@ class Telefone (models.Model):
 
     numero = models.CharField(max_length=200)
     tipo = models.CharField(max_length=3, choices=TIPOS)
-
+    class Meta:
+        db_table = 'telefone'
     def __unicode__(self):
         return self.numero
 
@@ -23,7 +24,8 @@ class Endereco (models.Model):
     bairro = models.CharField(max_length=200, blank=True, null=True)
     cidade = models.CharField(max_length=200)
     estado = models.CharField(max_length=200)
-
+    class Meta:
+        db_table = 'endereco'
     def __unicode__(self):
         return u'%s %s' % (self.cidade, self.rua)
 
@@ -44,7 +46,8 @@ class Horario (models.Model):
 
     dia = models.CharField(max_length=3, choices=DIAS)
     horario = models.CharField(max_length=5, choices=HORARIOS)
-
+    class Meta:
+        db_table = 'horario'
     def __unicode__(self):
         return u'%s, %s'  % (self.dia, self.horario)
 
@@ -58,7 +61,8 @@ class Periodo(models.Model):
         )
 
     periodo = models.CharField(max_length=10, choices=PERIODOS)
-
+    class Meta:
+        db_table = 'periodo'
     def __unicode__(self):
         return u'%s'  % (self.periodo)
 
@@ -93,22 +97,29 @@ class Pessoa (models.Model):
 
 
 class Disciplina (Cod_nome):
-    pass
+    class Meta:
+        db_table = 'disciplina'
 
 class Curso (Cod_nome):
     disciplina = models.ManyToManyField(Disciplina, verbose_name="Disciplinas da grade de um curso", null=True)
     #poll = models.ForeignKey(Poll, verbose_name="the related poll")
+    class Meta:
+        db_table = 'curso'
 
 class Aluno (Pessoa):
     curso = models.ForeignKey(Curso, verbose_name="Curso do aluno")
     data_ingresso = models.DateField('Data de ingresso')
     disciplinas = models.ManyToManyField(Disciplina, verbose_name="Disciplina do aluno")
-
+    class Meta:
+        db_table = 'aluno'
 
 class Professor (Pessoa):
+    #alterei DateTimeField para DateField
     tipo_contrato = models.CharField(max_length=200)
-    data_contratacao = models.DateTimeField('Data da contratacão')
-    data_recisao = models.DateTimeField('Data da recisão', null=True)
+    data_contratacao = models.DateField('Data da contratacão')
+    data_recisao = models.DateField('Data da recisão', null=True)
+    class Meta:
+        db_table = 'professor'
 
 class Unidade(models.Model):
     LABEL = (("1","1°"),
@@ -119,7 +130,8 @@ class Unidade(models.Model):
             ("6","6°"),
             )
     label = models.CharField(max_length=3,choices=LABEL)
-
+    class Meta:
+        db_table = 'unidade'
     def __unicode__(self):
         return self.label
 
@@ -127,7 +139,8 @@ class Noticia(models.Model):
     titulo = models.CharField(max_length=200)
     corpo = models.CharField(max_length=900)
     data_noticia = models.DateField(auto_now=True)
-
+    class Meta:
+        db_table = 'noticia'
     def unicode(self):
         return self.titulo
 
@@ -135,14 +148,15 @@ class Arquivo(models.Model):
     titulo_arquivo = models.CharField(max_length=200, verbose_name="Titulo do arquivo")
     descricao_arquivo = models.CharField(max_length=200, null=True, verbose_name="Descricao do arquivo")
     arquivo = models.FileField(upload_to="files",verbose_name="Arquivo para upload")
-
+    class Meta:
+        db_table = 'arquivo'
     def __unicode__(self):
         return self.titulo
 
 class Turma (models.Model):
     disciplina = models.OneToOneField(Disciplina, verbose_name="Disciplina")
     professor = models.ManyToManyField(Professor, verbose_name="Professor da Turma")
-    alunos = models.ForeignKey(Aluno, verbose_name = "Alunos na disciplina")
+    alunos = models.ManyToManyField(Aluno, verbose_name = "Alunos na disciplina")
     nome = models.CharField(max_length=200, verbose_name="Nome da turma", blank=True)
     periodo = models.ForeignKey(Periodo, verbose_name='Periodo')
     data_inicio = models.DateField('Data de início')
@@ -152,7 +166,8 @@ class Turma (models.Model):
     qtd_aulas = models.IntegerField(verbose_name="Quantidade de aulas")
     qtd_alunos = models.IntegerField(verbose_name="Quantidade de alunos")
     horario = models.ManyToManyField(Horario, verbose_name="Horario da discilpina")
-
+    class Meta:
+        db_table = 'turma'
     def __unicode__(self):
         return self.nome
 
@@ -162,7 +177,8 @@ class Nota(models.Model):
     aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
     turma = models.ForeignKey(Turma, verbose_name="Disciplina")
     unidade = models.ForeignKey(Unidade, verbose_name="Unidade Disc.")
-
+    class Meta:
+        db_table = 'nota'
     def __unicode__(self):
         return u'%s, peso %s' % (self.valor, self.peso)
 
@@ -171,7 +187,8 @@ class Frequencia(models.Model):
     aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
     turma = models.ForeignKey(Turma, verbose_name="Disciplina")
     n_faltas = models.IntegerField(verbose_name="Numero de faltas")
-
+    class Meta:
+        db_table = 'frequencia'
     def falta_1aula(self):
         self.n_faltas = n_faltas + 1
 
