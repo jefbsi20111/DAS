@@ -1,0 +1,14 @@
+1 - O banco de dados está escrito em sql. Use o mysql para acessa-lo.
+2- O nome do banco de dados é 'projeto_db'. O arquivo 'projeto_db.sql' na raiz do projeto é um backup da base de dados. Toda alteração nos modelos, repercurirão no banco de dados, sendo necessário um novo backup. 
+
+3- Comandos a se usar:
+	(a) Efetuar backup da base de dados:
+		DAS$ mysqldump -u root -p123 projeto_db > projeto_db.sql
+	(b) Executar script de povoamento:
+		DAS$ mysql -u root -p123 projeto_db < DAS_core/sql/insert.sql --force
+
+	(c)Caso algo dê errado com a base de dados, acesse o cliente mysql diretamente:
+		DAS$ mysql -u root -psua_senha
+
+		e execute esses comandos:
+		mysql> drop database das_db;create database das_db;use das_db;
