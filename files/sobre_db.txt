@@ -5,7 +5,11 @@
 	(a) Efetuar backup da base de dados:
 		DAS$ mysqldump -u root -p123 projeto_db > projeto_db.sql
 	(b) Executar script de povoamento:
-		DAS$ mysql -u root -p123 projeto_db < DAS_core/sql/insert.sql --force
+			DAS$ mysql -u root -p123 das_db < DAS_core/sql/insert.sql --force
+
+		Ou de reset:
+			DAS$ mysql -u root -p123 das_db < DAS_core/sql/reset_database.sql --force
+
 
 	(c)Caso algo dê errado com a base de dados, acesse o cliente mysql diretamente:
 		DAS$ mysql -u root -psua_senha

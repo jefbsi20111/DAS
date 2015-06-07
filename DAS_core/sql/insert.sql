@@ -256,14 +256,14 @@ insert into curso_disciplina(curso_id,disciplina_id) values(1,2);
 insert into curso_disciplina(curso_id,disciplina_id) values(1,3);
 
 
-insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Eduardo","edu@mail.com",1,1,"201202222",1,"01/01/2012");
-insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Jeferson","jef@mail.com",2,2,"201202223",1,"01/01/2012");
-insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Abelardo","abel@mail.com",3,3,"201202224",1,"01/01/2012");
-insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Jurema","jur@mail.com",4,4,"201202225",1,"01/01/2012");
-insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Teobaldo","teo@mail.com",5,5,"201202456",1,"01/01/2012");
-    insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Juca","juca@mail.com",5,6,"201202499",1,"01/01/2012");
+insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Eduardo","edu@mail.com",1,1,"201202222",1,"2012-01-01");
+insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Jeferson","jef@mail.com",2,2,"201202223",1,"2012-01-01");
+insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Abelardo","abel@mail.com",3,3,"201202224",1,"2012-01-01");
+insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Jurema","jur@mail.com",4,4,"201202225",1,"2012-01-01");
+insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Teobaldo","teo@mail.com",5,5,"201202456",1,"2012-01-01");
+insert into aluno(nome,email,endereco_id,telefone_id,matricula,curso_id,data_ingresso) values("Juca","juca@mail.com",6,6,"201202499",1,"2012-01-01");
 
-insert into turma(disciplina_id,nome,periodo_id,data_inicio,data_termino,qtd_aulas,qtd_alunos) values(1,"Turma da Zueira",1,"01/01/2012","01/01/2017",70,50);
+insert into turma(disciplina_id,nome,periodo_id,data_inicio,data_termino,qtd_aulas,qtd_alunos) values(1,"Turma da Zueira",1,"2012-01-01","2017-01-01",70,50);
 
 
 insert into frequencia(aluno_id,turma_id,n_faltas)values(1,1,20);
