@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_
 """
 Django settings for src_DAS project.
 
@@ -37,7 +38,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'DAS_core',
+    "djrill"
 )
+#Configuração de email com mandrill  djrill
+MANDRILL_API_KEY = "2hSrrN_fVMdr-O06wUilhQ"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -86,7 +92,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+
+
+
 

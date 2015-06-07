@@ -11,4 +11,26 @@
 		DAS$ mysql -u root -psua_senha
 
 		e execute esses comandos:
-		mysql> drop database das_db;create database das_db;use das_db;
+			mysql> drop database das_db;create database das_db;use das_db;
+
+	(d) Outros comandos:
+		#Exportar o banco normalmente
+			mysqldump -uroot -psenha123 nomedobanco > nomedobanco.sql
+		#Importar o banco normalmente (.sql)
+			mysql -uroot -psenha123 nomedobanco < nomedobanco.sql
+		#Mais comandos:
+			http://www.alexweber.com.br/pt/artigos/mysql-como-exportar-e-importar-backups-pelo-terminal
+
+
+
+
+'''
+class das_email(object):
+	# Build message
+	def enviar_email_simples(assunto,corpo,de,para,copia,copia_oculta,cabecalhos):
+		email = EmailMessage(subject=assunto,body=corpo,from_email=de,to=[para],
+			bcc=[copia], cc=[copia_oculta], headers = {'Reply-To': de})
+
+		# Send message with built-in send() method	
+		email.send()
+'''
