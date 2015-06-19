@@ -1,0 +1,24 @@
+BEGIN;
+USE das_db;
+/*lmpando as tabelas*/
+set foreign_key_checks=0;truncate  frequencia;
+set foreign_key_checks=0;truncate  nota;
+set foreign_key_checks=0;truncate  turma;
+set foreign_key_checks=0;truncate  turma_noticia;
+set foreign_key_checks=0;truncate  turma_horario;
+set foreign_key_checks=0;truncate  turma_arquivo;
+set foreign_key_checks=0;truncate  turma_professor;
+set foreign_key_checks=0;truncate  arquivo;
+set foreign_key_checks=0;truncate  noticia;
+set foreign_key_checks=0;truncate  unidade;
+set foreign_key_checks=0;truncate  professor;
+set foreign_key_checks=0;truncate  aluno;
+set foreign_key_checks=0;truncate  aluno_disciplinas;
+set foreign_key_checks=0;truncate  curso;
+set foreign_key_checks=0;truncate  curso_disciplina;
+set foreign_key_checks=0;truncate  disciplina;
+set foreign_key_checks=0;truncate  endereco;
+set foreign_key_checks=0;truncate  horario;
+set foreign_key_checks=0;truncate  periodo;
+set foreign_key_checks=0;truncate  telefone;
+COMMIT;

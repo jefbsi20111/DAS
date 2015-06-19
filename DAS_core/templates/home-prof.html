@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if perms.global_permissions.acess_disc_prof %}
+    <div class="content">
+        <p>Bem vindo {{ prof.nome }}</p>
+
+        <p>Suas disciplinas</p>
+        {% for turma in turmas %}
+        <li><a href="{{ turma.get_disc_prof_nota }}">{{ turma }}</a></li>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+{% endblock content %}
+	

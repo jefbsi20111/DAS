@@ -1,0 +1,2 @@
+importar base de dados para arquivo json:
+	python manage.py dumpdata --format=json DAS_core > DAS_core/fixtures/core_initial_data.json --indent=4

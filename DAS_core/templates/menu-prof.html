@@ -1,0 +1,22 @@
+<!-- Menu -->
+<div class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="{% url 'home' %}">Home</a>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<!-- to resolve NoReverseMatch for 'admin' -->
+<!--<li><a href="{% url 'admin:index' %}">Login</a></li> -->
+<!--{% if perms.global_permissions.acess_disc_prof %}-->
+<li><a href="{% url 'logout' %}">{{ user.username }} logout</a></li>
+{% endif %}
+</ul>
+</div>
+</div>
+</div>

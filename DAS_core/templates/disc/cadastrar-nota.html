@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Cadastrar Nota</h1>
+<form class="form col-sm-4" method="POST">
+{% csrf_token %}
+{{ form }}
+
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

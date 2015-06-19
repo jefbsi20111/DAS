@@ -1,0 +1,390 @@
+[
+{
+    "pk": 1, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "CE", 
+        "numero": "9999-8888"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "CE", 
+        "numero": "9999-8822"
+    }
+},
+{
+    "pk": 3, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "CE", 
+        "numero": "9999-8118"
+    }
+},
+{
+    "pk": 4, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "CE", 
+        "numero": "9999-0909"
+    }
+},
+{
+    "pk": 5, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "CE", 
+        "numero": "9911-8888"
+    }
+},
+{
+    "pk": 6, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "CE", 
+        "numero": "9469-8822"
+    }
+},
+{
+    "pk": 7, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "TE", 
+        "numero": "2671-8118"
+    }
+},
+{
+    "pk": 8, 
+    "model": "DAS_core.telefone", 
+    "fields": {
+        "tipo": "TE", 
+        "numero": "2134-0909"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua A", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua B", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 3, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua C", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 4, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua D", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 5, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua E", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 6, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua F", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 7, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua G", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 8, 
+    "model": "DAS_core.endereco", 
+    "fields": {
+        "complemento": null, 
+        "bairro": null, 
+        "cidade": "Caico", 
+        "rua": "Rua H", 
+        "cep": "59300000", 
+        "estado": "RN"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.horario", 
+    "fields": {
+        "horario": "M12", 
+        "dia": "Seg"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.horario", 
+    "fields": {
+        "horario": "M34", 
+        "dia": "Ter"
+    }
+},
+{
+    "pk": 3, 
+    "model": "DAS_core.horario", 
+    "fields": {
+        "horario": "M12", 
+        "dia": "Qua"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.periodo", 
+    "fields": {
+        "periodo": "2012.1"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.periodo", 
+    "fields": {
+        "periodo": "2012.2"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.disciplina", 
+    "fields": {
+        "cod": "BSI001", 
+        "nome": "Algoritmos"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.disciplina", 
+    "fields": {
+        "cod": "BSI002", 
+        "nome": "REDES"
+    }
+},
+{
+    "pk": 3, 
+    "model": "DAS_core.disciplina", 
+    "fields": {
+        "cod": "BSI003", 
+        "nome": "Eng. Software"
+    }
+},
+{
+    "pk": 4, 
+    "model": "DAS_core.disciplina", 
+    "fields": {
+        "cod": "DIR001", 
+        "nome": "Direito B\u00e1sico I"
+    }
+},
+{
+    "pk": 5, 
+    "model": "DAS_core.disciplina", 
+    "fields": {
+        "cod": "DIR003", 
+        "nome": "Filosofia"
+    }
+},
+{
+    "pk": 6, 
+    "model": "DAS_core.disciplina", 
+    "fields": {
+        "cod": "HIS003", 
+        "nome": "Hist\u00f3ria do RN"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.curso", 
+    "fields": {
+        "disciplina": [
+            1, 
+            2, 
+            3
+        ], 
+        "cod": "BSI0", 
+        "nome": "B. Sistemas de Informacao"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.curso", 
+    "fields": {
+        "disciplina": [], 
+        "cod": "DIR0", 
+        "nome": "Direito"
+    }
+},
+{
+    "pk": 3, 
+    "model": "DAS_core.curso", 
+    "fields": {
+        "disciplina": [], 
+        "cod": "HIS0", 
+        "nome": "Historia"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.aluno", 
+    "fields": {
+        "nome": "Eduardo", 
+        "curso": 1, 
+        "data_ingresso": "2012-01-01", 
+        "disciplinas": [], 
+        "telefone": 1, 
+        "matricula": "201202222", 
+        "endereco": 1, 
+        "email": "edu@mail.com"
+    }
+},
+{
+    "pk": 2, 
+    "model": "DAS_core.aluno", 
+    "fields": {
+        "nome": "Jeferson", 
+        "curso": 1, 
+        "data_ingresso": "2012-01-01", 
+        "disciplinas": [], 
+        "telefone": 2, 
+        "matricula": "201202223", 
+        "endereco": 2, 
+        "email": "jef@mail.com"
+    }
+},
+{
+    "pk": 3, 
+    "model": "DAS_core.aluno", 
+    "fields": {
+        "nome": "Abelardo", 
+        "curso": 1, 
+        "data_ingresso": "2012-01-01", 
+        "disciplinas": [], 
+        "telefone": 3, 
+        "matricula": "201202224", 
+        "endereco": 3, 
+        "email": "abel@mail.com"
+    }
+},
+{
+    "pk": 4, 
+    "model": "DAS_core.aluno", 
+    "fields": {
+        "nome": "Jurema", 
+        "curso": 1, 
+        "data_ingresso": "2012-01-01", 
+        "disciplinas": [], 
+        "telefone": 4, 
+        "matricula": "201202225", 
+        "endereco": 4, 
+        "email": "jur@mail.com"
+    }
+},
+{
+    "pk": 5, 
+    "model": "DAS_core.aluno", 
+    "fields": {
+        "nome": "Teobaldo", 
+        "curso": 1, 
+        "data_ingresso": "2012-01-01", 
+        "disciplinas": [], 
+        "telefone": 5, 
+        "matricula": "201202456", 
+        "endereco": 5, 
+        "email": "teo@mail.com"
+    }
+},
+{
+    "pk": 6, 
+    "model": "DAS_core.aluno", 
+    "fields": {
+        "nome": "Juca", 
+        "curso": 1, 
+        "data_ingresso": "2012-01-01", 
+        "disciplinas": [], 
+        "telefone": 6, 
+        "matricula": "201202499", 
+        "endereco": 6, 
+        "email": "juca@mail.com"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.turma", 
+    "fields": {
+        "alunos": [], 
+        "disciplina": 1, 
+        "nome": "Turma da Zueira", 
+        "periodo": 1, 
+        "professor": [], 
+        "qtd_aulas": 70, 
+        "horario": [], 
+        "data_inicio": "2012-01-01", 
+        "qtd_alunos": 50, 
+        "arquivo": [], 
+        "noticia": [], 
+        "data_termino": "2017-01-01"
+    }
+},
+{
+    "pk": 1, 
+    "model": "DAS_core.frequencia", 
+    "fields": {
+        "aluno": 1, 
+        "n_faltas": 20, 
+        "turma": 1
+    }
+}
+]
