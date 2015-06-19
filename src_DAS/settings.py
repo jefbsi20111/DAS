@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'j5o3u^ldhdjufoy--en0)p5&yq_hy%xfxt&2v&tppp752-dnvt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = True
 DEBUG = True
 
 TEMPLATE_DEBUG = True
@@ -32,14 +33,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'global_permissions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.views.generic',
     'DAS_core',
-    "djrill"
+    'bootstrap3',
+    "djrill",
+    'test_core',
 )
 #Configuração de email com mandrill  djrill
 MANDRILL_API_KEY = "2hSrrN_fVMdr-O06wUilhQ"
@@ -68,7 +73,8 @@ WSGI_APPLICATION = 'src_DAS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        #'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'das_db',
         'USER':'root',
         'PASSWORD':'123',
@@ -93,6 +99,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+#STATICFILES_DIRS = (os.path.join(os.path.dirname(__file__),'static',),)
 
 STATIC_URL = '/static/'
 

@@ -3,20 +3,20 @@
 from django.db import models
 from django.core.validators import *
 from time import gmtime, strftime
-
+ 
 class Telefone (models.Model):
     TIPOS = (
         ('CE', 'Celular'),
         ('TE', 'Telefone'),
     )
-
+ 
     numero = models.CharField(max_length=200)
     tipo = models.CharField(max_length=3, choices=TIPOS)
     class Meta:
         db_table = 'telefone'
     def __unicode__(self):
         return self.numero
-
+ 
 class Endereco (models.Model):
     rua = models.CharField(max_length=200, verbose_name="Rua e número")
     complemento = models.CharField(max_length=200, blank=True, null=True)
@@ -28,7 +28,7 @@ class Endereco (models.Model):
         db_table = 'endereco'
     def __unicode__(self):
         return u'%s %s' % (self.cidade, self.rua)
-
+ 
 class Horario (models.Model):
     DIAS = (
         ('Seg', 'Segunda'),
@@ -37,20 +37,20 @@ class Horario (models.Model):
         ('Qui', 'Quinta'),
         ('Sex', 'Sexta')
         )
-
+ 
     HORARIOS = (
         ('M12', '07:00-08:30'),
         ('M23', '09:00-10:40')
         ,('M45', '10:40-12:20')
         )
-
+ 
     dia = models.CharField(max_length=3, choices=DIAS)
     horario = models.CharField(max_length=5, choices=HORARIOS)
     class Meta:
         db_table = 'horario'
     def __unicode__(self):
         return u'%s, %s'  % (self.dia, self.horario)
-
+ 
 class Periodo(models.Model):
     PERIODOS = (
         ('2015.1', '2015.1'),
@@ -59,53 +59,58 @@ class Periodo(models.Model):
         ('2016.2', '2016.2'),
         ('2017.1', '2017.1')
         )
-
+ 
     periodo = models.CharField(max_length=10, choices=PERIODOS)
     class Meta:
         db_table = 'periodo'
     def __unicode__(self):
         return u'%s'  % (self.periodo)
-
+ 
 class Cod_nome (models.Model):
     nome = models.CharField(max_length=200)
     cod = models.CharField(max_length=20)
-
+ 
     class Meta():
         abstract = True
         ordering = ['nome']
-
+ 
     def __unicode__(self):
         return  u'%s %s' % (self.nome, self.cod)
-
+ 
 class Pessoa (models.Model):
     nome = models.CharField(max_length=200)
     email = models.CharField(max_length=200, validators=[validate_email])
     endereco = models.OneToOneField(Endereco, verbose_name="Endereco")
     telefone = models.ForeignKey(Telefone, verbose_name="Telefone para contato")
-
+ 
     class Meta:
         abstract = True
-
+ 
     def __unicode__(self):
         return u'%s %s' % (self.nome, self.matricula)
-
+ 
     def matricula_default():
         matricula = strftime("%Y%s", gmtime())
         return matricula
-
+ 
     matricula = models.CharField(max_length=30, default=matricula_default)
-
-
+ 
+ 
 class Disciplina (Cod_nome):
     class Meta:
         db_table = 'disciplina'
+ 
+    def get_disc_detail_url(self):
+        return u'/disc/%i/' % self.id
 
+    
+ 
 class Curso (Cod_nome):
     disciplina = models.ManyToManyField(Disciplina, verbose_name="Disciplinas da grade de um curso", null=True)
     #poll = models.ForeignKey(Poll, verbose_name="the related poll")
     class Meta:
         db_table = 'curso'
-
+ 
 class Aluno (Pessoa):
     curso = models.ForeignKey(Curso, verbose_name="Curso do aluno")
     data_ingresso = models.DateField('Data de ingresso')
@@ -113,6 +118,9 @@ class Aluno (Pessoa):
     class Meta:
         db_table = 'aluno'
 
+    def get_home_aluno_url(self):
+        return u'home-aluno/%i/'% self.id
+ 
 class Professor (Pessoa):
     #alterei DateTimeField para DateField
     tipo_contrato = models.CharField(max_length=200)
@@ -120,7 +128,7 @@ class Professor (Pessoa):
     data_recisao = models.DateField('Data da recisão', null=True)
     class Meta:
         db_table = 'professor'
-
+ 
 class Unidade(models.Model):
     LABEL = (("1","1°"),
             ("2","2°"),
@@ -134,7 +142,10 @@ class Unidade(models.Model):
         db_table = 'unidade'
     def __unicode__(self):
         return self.label
-
+ 
+    class Mete:
+        ordering = ['label']
+ 
 class Noticia(models.Model):
     titulo = models.CharField(max_length=200)
     corpo = models.CharField(max_length=900)
@@ -143,7 +154,7 @@ class Noticia(models.Model):
         db_table = 'noticia'
     def unicode(self):
         return self.titulo
-
+ 
 class Arquivo(models.Model):
     titulo_arquivo = models.CharField(max_length=200, verbose_name="Titulo do arquivo")
     descricao_arquivo = models.CharField(max_length=200, null=True, verbose_name="Descricao do arquivo")
@@ -152,7 +163,7 @@ class Arquivo(models.Model):
         db_table = 'arquivo'
     def __unicode__(self):
         return self.titulo
-
+ 
 class Turma (models.Model):
     disciplina = models.OneToOneField(Disciplina, verbose_name="Disciplina")
     professor = models.ManyToManyField(Professor, verbose_name="Professor da Turma")
@@ -168,20 +179,33 @@ class Turma (models.Model):
     horario = models.ManyToManyField(Horario, verbose_name="Horario da discilpina")
     class Meta:
         db_table = 'turma'
+        ordering = ['nome']
     def __unicode__(self):
         return self.nome
-
+    def get_disc_prof_noticia(self):
+        return u'disc-inserir-noticia/%i/'% self.id
+    def get_disc_prof_nota(self):
+        return u'disc-inserir-nota/%i/'% self.id
+    def get_disc_prof_freq(self):
+        return u'disc-inserir-freq/%i/'% self.id
+    
 class Nota(models.Model):
     valor = models.IntegerField(verbose_name="Nota")
     peso = models.IntegerField(verbose_name="Peso da Nota")
     aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
     turma = models.ForeignKey(Turma, verbose_name="Disciplina")
     unidade = models.ForeignKey(Unidade, verbose_name="Unidade Disc.")
+ 
     class Meta:
         db_table = 'nota'
+        ordering = ['unidade']
+ 
     def __unicode__(self):
         return u'%s, peso %s' % (self.valor, self.peso)
-
+ 
+    def nota_info(self):
+        a = [self.aluno.nome, self.aluno.matricula, self.valor, self.peso]
+ 
 class Frequencia(models.Model):
     """docstring for Frequencia"""
     aluno = models.ForeignKey(Aluno, verbose_name="Aluno")
@@ -191,9 +215,17 @@ class Frequencia(models.Model):
         db_table = 'frequencia'
     def falta_1aula(self):
         self.n_faltas = n_faltas + 1
-
+ 
     def falta_2aula(self):
         self.n_faltas = n_faltas + 2
-
+ 
     def __unicode__(self):
         return u'%s' %(self.n_faltas)
+ 
+    def freq_info(self):
+        faltas = float(self.n_faltas)
+        aulas = float(self.turma.qtd_aulas)
+        percent_faltas = ((faltas/aulas) * 100)
+        a  = [self.aluno.nome, self.aluno.matricula, self.n_faltas, self.turma.qtd_aulas, percent_faltas]
+        return a
+
